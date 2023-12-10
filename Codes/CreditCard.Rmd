@@ -1,0 +1,97 @@
+---
+title: "Credi Card Code"
+output: html_notebook
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r}
+library(ggplot2)
+library(dplyr)
+```
+
+```{r}
+# Load credit card dataset
+FILE = 'Data/CreditCardData.csv'
+ccData = read.csv(FILE, skip = 1, header = TRUE, row.names = 1)
+str(ccData)
+```
+
+```{r}
+# Adjust misrepresented categorical column values as NAs
+# Just run the cell for now
+ccData = ccData %>% mutate(SEX = ifelse(!(SEX %in% c(1, 2)), NA, SEX),
+EDUCATION = ifelse(!(EDUCATION %in% c(1, 2, 3, 4)), NA, EDUCATION),
+MARRIAGE = ifelse(!(MARRIAGE %in% c(1, 2)), NA, MARRIAGE),
+PAY_0 = ifelse(!(PAY_0 %in% c(-1,1,2,3,4,5,6,7,8,9)), NA, PAY_0),
+PAY_2 = ifelse(!(PAY_2 %in% c(-1,1,2,3,4,5,6,7,8,9)), NA, PAY_2),
+PAY_3 = ifelse(!(PAY_3 %in% c(-1,1,2,3,4,5,6,7,8,9)), NA, PAY_3),
+PAY_4 = ifelse(!(PAY_4 %in% c(-1,1,2,3,4,5,6,7,8,9)), NA, PAY_4),
+PAY_5 = ifelse(!(PAY_5 %in% c(-1,1,2,3,4,5,6,7,8,9)), NA, PAY_5),
+PAY_6 = ifelse(!(PAY_6 %in% c(-1,1,2,3,4,5,6,7,8,9)), NA, PAY_6))
+str(ccData)
+```
+
+```{r}
+# Plot percentage of NAs in each column of the data frame
+#sapply(ccData, function(x){FILL YOUR CODE HERE})
+#FILL YOUR CODE FOR GGPLOT HERE
+```
+```{r}
+#calculate the missing values (NAs) in each column
+na_counts = colSums(is.na(ccData))
+na_counts
+```
+```{r}
+na_percentages = sapply(ccData, function(x) sum(is.na(x)) / length(x) * 100)
+
+# Create a dataframe with column names and the percentage of missing values
+na_df = data.frame(
+  Column = names(ccData),
+  Percentage = na_percentages
+)
+```
+```{r}
+#ggplot(na_df, aes(x = Column, y = Percentage)) +
+  #geom_bar(stat = "identity", fill = "Purple") +
+  #labs(
+    #title = "Percentage of Missing Values in Each Column",
+    #x = "Column",
+    #y = "Percentage (%)"
+  #) +
+  #theme(axis.text.x = element_text(angle = 90, vjust = 0.5))
+```
+
+```{r}
+#box plot
+p = ggplot(data = na_df) +
+  geom_bar(stat = "identity",aes(x = Column, y = Percentage),color='purple')+
+  labs(
+    title = "Percentage of Missing Values in Each Column",
+    x = "Column",
+    y = "Percentage (%)"
+  )+
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5))
+p
+```
+```{r}
+#scatter plot 
+p = ggplot(data = na_df) +
+  geom_point(aes(x = Column, y = Percentage, color= 'blur'))+
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5))
+p 
+```
+
+
+```{r}
+#bar plot
+p = ggplot(data = na_df) +
+  geom_bar(aes(x = Column),color='blue')+
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5))
+p
+```
+
+
+
+
+

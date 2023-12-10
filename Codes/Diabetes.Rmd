@@ -1,0 +1,45 @@
+---
+title: "Daibetes"
+output: html_document
+date: "2023-09-04"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(ggplot2)
+```
+
+```{r}
+#loading dataset
+diabetes = read.csv('Data/diabetes.csv', header=TRUE)
+head(diabetes,5)
+str(diabetes)
+```
+```{r}
+continuous_cols = c('Glucose','BloodPressure','SkinThickness','Insulin','BMI','PedigreeFunction','Age')
+categorical_cols = c('Pregnancies','Diabetes')
+```
+```{r}
+#convert categorical_cols columns to factor type
+#diabetes[categorical_cols] = lapply(diabetes[categorical_cols], factor)
+#str(diabetes)
+```
+
+```{r}
+#box plot
+p = ggplot(data = diabetes) +
+  geom_bar(stat = "identity",aes(x = Glucose, y = Age),color='purple')+
+  labs(
+    title = "Glucose VS Age",
+    x = "Glucose",
+    y = "Age"
+  )+
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5))
+p
+```
+
+
+

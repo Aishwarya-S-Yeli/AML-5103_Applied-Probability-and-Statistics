@@ -1,0 +1,45 @@
+---
+title: "bus"
+output:
+  pdf_document: default
+  html_document: default
+date: "2023-09-05"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+# Set the number of simulations
+num_simulations = 100000
+# Set the number of stops
+num_stops = 10
+```
+```{r}
+
+#simulation
+simulate_bus_journey = function() {
+  passengers = 0
+  
+  for (stop in 1:num_stops) {
+    # Simulate passengers getting off
+    passengers = rbinom(1, passengers, 0.2)
+    
+    # Simulate passengers getting on
+    passengers = passengers + rbinom(1, 1, c(0.5, 0.4, 0.1))
+  }
+  
+  return(passengers == 0)
+}
+```
+
+```{r}
+# Perform the simulations and calculate the probability
+empty_count = sum(replicate(num_simulations, simulate_bus_journey()))
+probability_empty = empty_count / num_simulations
+
+cat("Probability that the bus is empty after the 10th stop:", probability_empty, "\n")
+
+```
+

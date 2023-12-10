@@ -1,0 +1,38 @@
+---
+title: "cellphone_Location"
+output: html_document
+date: "2023-09-13"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+A = matrix(c(1:6), nrow=2, ncol=3, byrow=TRUE)
+B = matrix(c(7:12), nrow=2, ncol=3, byrow=TRUE)
+A*B   #Hadamard Product
+sum(A)
+```
+
+```{r}
+P = matrix(c(0.05,0.10,0.05,0.05,0.05,0.10,0.05,0.05,0.05,0.05,0.10,0.05,0.05,0.05,0.10,0.05), nrow=4, ncol=4, byrow=TRUE)
+P
+L = matrix(c(0.75,0.95,0.75,0.05,0.05,0.75,0.95,0.75,0.01,0.05,0.75,0.95,0.01,0.01,0.05,0.75), nrow=4, ncol=4, byrow=TRUE)
+```
+
+```{r}
+#Hadamard Product
+P*L
+```
+
+```{r}
+sum(P*L)
+```
+
+```{r}
+#Posterior Probability
+(P * L) / sum(P*L)
+```
+
+
